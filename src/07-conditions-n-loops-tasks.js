@@ -90,8 +90,11 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  if ((a + b) > c && (b + c) > a && (a + c) > b) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -218,10 +221,15 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  let revStr = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    revStr += str[i];
+  }
+  return revStr;
 }
 
+// or return str.split('').reverse().join('');
 
 /**
  * Reverse the specified integer number (put all digits in reverse order)
@@ -235,8 +243,13 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const str = num.toString();
+  let revStr = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    revStr += str[i];
+  }
+  return parseInt(revStr, 10);
 }
 
 
@@ -278,8 +291,15 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const numToArr = Array.from(String(num), Number);
+  const sum = numToArr.reduce(
+    (accumulator, currentValue) => accumulator + currentValue, 0,
+  );
+  if (sum > 9) {
+    return getDigitalRoot(sum);
+  }
+  return sum;
 }
 
 
