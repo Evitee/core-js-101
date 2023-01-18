@@ -184,8 +184,14 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  for (let i = 0; i < str.length; i += 1) {
+    const char = str.charAt(i);
+    if (str.indexOf(char) === i && str.indexOf(char, i + 1) === -1) {
+      return char;
+    }
+  }
+  return null;
 }
 
 
@@ -211,8 +217,30 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let intervalString = '';
+  if (isStartIncluded) {
+    intervalString += '[';
+  } else {
+    intervalString += '(';
+  }
+  if (a < b) {
+    intervalString += a.toString();
+  } else {
+    intervalString += b.toString();
+  }
+  intervalString += ', ';
+  if (b < a) {
+    intervalString += a.toString();
+  } else {
+    intervalString += b.toString();
+  }
+  if (isEndIncluded) {
+    intervalString += ']';
+  } else {
+    intervalString += ')';
+  }
+  return intervalString;
 }
 
 
@@ -356,8 +384,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return Number(num).toString(n);
 }
 
 
@@ -373,8 +401,17 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const arrOfPathes = pathes.map((item) => item.split('/'));
+  let common = '';
+  for (let i = 0; i < arrOfPathes[0].length; i += 1) {
+    if (arrOfPathes.every((item) => arrOfPathes[0][i] === item[i])) {
+      common += `${arrOfPathes[0][i]}/`;
+    } else {
+      break;
+    }
+  }
+  return common;
 }
 
 
@@ -431,10 +468,25 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  if ((position[0][0] === position[1][1] && position[1][1] === position[2][2]
+    && position[1][1] !== undefined) || (position[0][2] === position[1][1]
+      && position[1][1] === position[2][0] && position[1][1] !== undefined)) {
+    return position[1][1];
+  }
+  for (let i = 0; i < position.length; i += 1) {
+    if (position[i][0] === position[i][1] && position[i][1] === position[i][2]
+      && position[i][1] !== undefined) {
+      return position[i][0];
+    }
+    for (let j = 0; j < position.length; j += 1) {
+      if (position[0][j] === position[1][j] && position[1][j] === position[2][j]
+        && position[1][j] !== undefined) {
+        return position[0][j];
+      }
+    }
+  } return undefined;
 }
-
 
 module.exports = {
   getFizzBuzz,
